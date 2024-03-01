@@ -84,10 +84,10 @@ const WeatherComponent = () => {
           <p>Location: {weatherData.name}</p>
           <p>Temperature: {weatherData.main.temp}°C</p>
           <p>Description: {weatherData.weather[0].description}</p> */}
-          <video className='z-50 w-full h-screen object-cover object-center' autoPlay={"autoplay"} muted={true} loop={true} playsInline={true}>
+          {/* <video className='z-50 w-full h-screen object-cover object-center' autoPlay={"autoplay"} muted={true} loop={true} playsInline={true}>
             <source src={vsrc} type='video/mp4' />
-          </video>
-          {/* <video className='z-50 w-full h-screen object-cover object-center' autoPlay={"autoplay"} muted={true} loop={true} playsInline={true} src={vsrc}></video> */}
+          </video> */}
+          <video className='z-50 w-full h-screen object-cover object-center' autoPlay={"autoplay"} muted={true} loop={true} playsInline={true} src={vsrc}></video>
         </div>
       ) : (
         <div className='w-full h-screen flex items-center justify-center'>
