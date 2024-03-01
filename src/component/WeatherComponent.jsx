@@ -8,6 +8,7 @@ import broken_clouds from '../assets/weather videos/broken clouds.mp4'
 import scattered_clouds from '../assets/weather videos/scattered clouds.mp4'
 import shower_rain from '../assets/weather videos/shower rain.mp4'
 import overcast_clouds from '../assets/weather videos/overcast clouds.mp4'
+import light_rain from '../assets/weather videos/light rain.mp4'
 
 const WeatherComponent = () => {
   const [latitude, setLatitude] = useState(null);
@@ -15,6 +16,8 @@ const WeatherComponent = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [vsrc, setVsrc] = useState('')
 
+
+  // 1st useEffect for getting user's position: 
   useEffect(() => {
 
     // fetching the latitude and longitude from geolocation object
@@ -43,6 +46,7 @@ const WeatherComponent = () => {
           case "rain": setVsrc(rain);break;
           case "mist": setVsrc(mist);break;
           case "overcast clouds": setVsrc(overcast_clouds);break;
+          case "light rain": setVsrc(light_rain);break;
         }
       }
     }
@@ -51,8 +55,9 @@ const WeatherComponent = () => {
     checkWeather();
 
   }, [weatherData]);
-  
-  // console.log(vsrc)
+
+
+  // 2nd useEffect for getting weather according to their latitude and longitude
   
   useEffect(() => {
     // Fetch weather data based on latitude and longitude
@@ -73,6 +78,8 @@ const WeatherComponent = () => {
     
     fetchWeather();
   }, [latitude, longitude]);
+
+  
 
   console.log(weatherData)
 
