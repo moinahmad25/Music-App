@@ -7,6 +7,7 @@ import rain from '../assets/weather videos/rain.mp4'
 import broken_clouds from '../assets/weather videos/broken clouds.mp4'
 import scattered_clouds from '../assets/weather videos/scattered clouds.mp4'
 import shower_rain from '../assets/weather videos/shower rain.mp4'
+import overcast_clouds from '../assets/weather videos/overcast clouds.mp4'
 
 const WeatherComponent = () => {
   const [latitude, setLatitude] = useState(null);
@@ -15,48 +16,40 @@ const WeatherComponent = () => {
   const [vsrc, setVsrc] = useState('')
 
   useEffect(() => {
-    // Function to fetch geolocation
-    // console.log(navigator.geolocation)
+
+    // fetching the latitude and longitude from geolocation object
     const getLocation = () => {
-      if (navigator.geolocation) {
+      if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        }, (error) => {  //handling error in getting location
-          console.error("Error getting geolocation:", error);
-        });
-      } else {
-        console.error("Geolocation is not supported by this browser.");
+          setLatitude(position.coords.latitude)
+          setLongitude(position.coords.longitude)
+        }, (error) => {
+          console.log("Geolocation is not defined or supported!!!", error)
+        })
       }
-    };
+    }
 
     // Call the function to get geolocation
     getLocation();
     
-    if(weatherData !== null){
-      if (weatherData.weather[0].description === 'clear sky') {
-        setVsrc(clear_sky)
-      }
-      else if (weatherData.weather[0].description === 'few clouds') {
-        setVsrc(few_clouds)
-      }
-      else if (weatherData.weather[0].description === 'scattered clouds') {
-        setVsrc(scattered_clouds)
-      }
-      else if (weatherData.weather[0].description === 'broken clouds') {
-        setVsrc(broken_clouds)
-      }
-      else if (weatherData.weather[0].description === 'shower rain') {
-        setVsrc(shower_rain)
-      }
-      else if (weatherData.weather[0].description === 'rain') {
-        setVsrc(rain)
-      }
-      else if (weatherData.weather[0].description === 'mist') {
-        setVsrc(mist)
+    const checkWeather = () => {
+      if(weatherData !== null){
+        switch(weatherData.weather[0].description){
+          case "clear sky": setVsrc(clear_sky); break;
+          case "few clouds": setVsrc(few_clouds);break;
+          case "scattered clouds": setVsrc(scattered_clouds);break;
+          case "broken clouds": setVsrc(broken_clouds);break;
+          case "shower rain": setVsrc(shower_rain);break;
+          case "rain": setVsrc(rain);break;
+          case "mist": setVsrc(mist);break;
+          case "overcast clouds": setVsrc(overcast_clouds);break;
+        }
       }
     }
-    
+
+    // checking weather condition and applying video files acc. to the weather desciption.
+    checkWeather();
+
   }, [weatherData]);
   
   // console.log(vsrc)
@@ -66,10 +59,10 @@ const WeatherComponent = () => {
     const fetchWeather = async () => {
       if (latitude !== null && longitude !== null) {
         const api_key = `8f271e955e1286fc6963f8c4637d9bc7` // Your API key from OpenWeatherMap or WeatherAPI
-        const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${api_key}&units=metric`;
+        const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${api_key}&units=metric`;
         
         try {
-          const response = await fetch(API_URL);
+          const response = await fetch(api_url);
           const data = await response.json();
           setWeatherData(data);
         } catch (error) {
