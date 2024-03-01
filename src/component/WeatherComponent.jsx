@@ -79,7 +79,7 @@ const WeatherComponent = () => {
     fetchWeather();
   }, [latitude, longitude]);
 
-  
+
 
   console.log(weatherData)
 
@@ -99,8 +99,8 @@ const WeatherComponent = () => {
       ) : (
         <div className='w-full h-screen flex items-center justify-center'>
           <h1 className='text-6xl font-bold'>Loading weather data...</h1>
-          <p>Shivam Enter...</p>
-          <h1>moin gandu</h1>
+          <p>Shivam Randi Hai</p>
+          <h1>moin gandu nahi hai</h1>
         </div>
       )}
     </div>
